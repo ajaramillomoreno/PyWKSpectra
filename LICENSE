@@ -1,0 +1,63 @@
+PyWKSpectra — Temporary Development License
+Copyright (c) 2026 Alejandro Jaramillo Moreno
+All rights reserved.
+
+IMPORTANT: PROVISIONAL LICENSE — PRIVATE DEVELOPMENT
+
+1. Scope
+
+This notice applies only to original PyWKSpectra code and other materials
+for which the copyright holder has the authority to grant permissions.
+It does not replace or restrict any applicable licenses covering code,
+materials, or contributions obtained from earlier projects or third parties.
+
+2. Limited permission for authorized collaborators
+
+Individuals explicitly authorized to access this private repository may
+view, run, and modify the covered materials solely for internal development,
+testing, and evaluation of PyWKSpectra, subject to any additional terms
+communicated by the copyright holder. This limited permission does not
+include public distribution.
+
+3. Uses requiring prior written permission
+
+Except where applicable law or an existing third-party license permits
+otherwise, prior written permission from the copyright holder is required
+to:
+
+- publish, distribute, sublicense, or otherwise share covered source code
+  or modified versions outside the authorized development team;
+- incorporate or redistribute covered code within another software package,
+  library, product, or service;
+- commercially distribute covered code or derivative works.
+
+4. Attribution and scientific citation
+
+All permitted copies must retain applicable copyright and attribution
+notices. If the software is authorized for use in research that results in
+a publication, please acknowledge and cite PyWKSpectra and its author,
+Alejandro Jaramillo Moreno, using the citation instructions provided by
+the project. This temporary notice is not a substitute for the formal
+citation metadata to be released with the software.
+
+5. No warranty
+
+THE COVERED MATERIALS ARE PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT.
+TO THE EXTENT PERMITTED BY APPLICABLE LAW, THE COPYRIGHT HOLDER SHALL NOT
+BE LIABLE FOR ANY CLAIM OR DAMAGES ARISING FROM THEIR USE.
+
+6. Future licensing
+
+The copyright holder may release future versions under a different license.
+Any such change will be announced in the project repository. This notice
+does not revoke permissions that third parties already hold under valid
+licenses for code from previous releases or other projects.
+
+Permission requests:
+Alejandro Jaramillo Moreno
+Departamento de Cambio Climático
+Instituto de Ciencias de la Atmósfera y Cambio Climático (ICAyCC)
+Universidad Nacional Autónoma de México (UNAM)
+ajaramillo@atmosfera.unam.mx

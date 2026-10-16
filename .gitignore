@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Build and distribution
+build/
+dist/
+
+# Virtual environments
+.venv/
+venv/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# macOS
+.DS_Store
+._*
+
+# Editors
+.vscode/
+.idea/
+
+# Temporary files
+*.log
+*.tmp
+*~
