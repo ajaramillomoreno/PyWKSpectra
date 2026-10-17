@@ -31,3 +31,6 @@ htmlcov/
 *.log
 *.tmp
 *~
+
+# Local experimental development
+scratch/

@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: >-
+  If you use PyWKSpectra in your research, please cite this software
+  and its author. Sharing your resulting publication is also appreciated.
+type: software
+title: 'PyWKSpectra: Wheeler–Kiladis Space–Time Spectral Analysis in Python'
+authors:
+  - family-names: Jaramillo Moreno
+    given-names: Alejandro
+    orcid: 'https://orcid.org/0000-0002-4175-7726'
+    affiliation: >-
+      Departamento de Cambio Climático,
+      Instituto de Ciencias de la Atmósfera y Cambio Climático,
+      Universidad Nacional Autónoma de México (UNAM)
+abstract: >-
+  PyWKSpectra is a Python package under development for the calculation,
+  analysis, and visualization of Wheeler–Kiladis space–time spectra
+  of tropical atmospheric variability.
+keywords:
+  - Wheeler–Kiladis
+  - space–time spectra
+  - equatorial waves
+  - tropical atmosphere
+  - Python
