@@ -48,7 +48,7 @@ These improvements concern **software design, usability, and reproducibility**; 
 PyWKSpectra requires **Python 3.10 or newer**. Install it with pip:
 
 ```bash
-python -m pip install PyWKSpectra
+pip install PyWKSpectra
 ```
 
 The core scientific dependencies are installed automatically:
