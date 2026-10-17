@@ -136,11 +136,19 @@ The project continues to be developed **in my limited personal time, without ded
 
 ## How to cite PyWKSpectra
 
-**If PyWKSpectra contributes to your figures, analyses, teaching materials, or scientific results, please acknowledge the package and cite its original author.**
+**If PyWKSpectra contributes to your figures, analyses, teaching materials, or scientific results, please cite the software and its original author.**
 
-The foundational paper by **Wheeler and Kiladis (1999)** describes the scientific method. A **separate software citation** recognizes the development, implementation, documentation, and maintenance that make that method available in Python. Ideally, please cite both when relevant.
+PyWKSpectra 1.0 is officially archived on **Zenodo**, providing a permanent DOI for scientific citation.
 
-The repository includes a `CITATION.cff` file with software attribution information. A persistent DOI for an archived release is planned. Until a DOI is available, please acknowledge the software as **PyWKSpectra, developed by Alejandro Jaramillo-Moreno**, with a link to this repository.
+**Recommended citation:**
+
+Jaramillo-Moreno, A. (2026). *PyWKSpectra: Wheeler–Kiladis Space–Time Spectral Analysis in Python* (Version 1.0) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.23438592
+
+**Software DOI:** [10.5281/zenodo.23438592](https://doi.org/10.5281/zenodo.23438592)
+
+The repository also includes a [CITATION.cff](CITATION.cff) file with machine-readable citation metadata.
+
+The foundational paper by **Wheeler and Kiladis (1999)** describes the scientific methodology. A separate software citation recognizes the development, implementation, documentation, and maintenance that make this analysis available in Python. Ideally, please cite both when relevant.
 
 ## Publications using PyWKSpectra
 
