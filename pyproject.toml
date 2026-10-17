@@ -29,16 +29,16 @@ dependencies = [
     "numpy>=1.24",
     "xarray>=2023.1",
     "matplotlib>=3.7",
-    "netCDF4>=1.6"
+    "netCDF4>=1.6",
+    "cfgrib"
 ]
 
 
-[project.optional-dependencies]
-grib = ["cfgrib"]
-test = ["pytest"]
-
-
 [project.urls]
+Homepage = "https://github.com/ajaramillomoreno/PyWKSpectra"
+Repository = "https://github.com/ajaramillomoreno/PyWKSpectra"
+Documentation = "https://github.com/ajaramillomoreno/PyWKSpectra/blob/main/docs/methodology.md"
+Issues = "https://github.com/ajaramillomoreno/PyWKSpectra/issues"
 "Author ORCID" = "https://orcid.org/0000-0002-4175-7726"
 
 

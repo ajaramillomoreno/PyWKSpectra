@@ -1,6 +1,9 @@
 <p align="center">
-  <img src="assets/pywkspectra_logo.png" alt="PyWKSpectra logo" width="280">
+  <img src="https://raw.githubusercontent.com/ajaramillomoreno/PyWKSpectra/main/assets/pywkspectra_logo.png"
+       alt="PyWKSpectra logo"
+       width="280">
 </p>
+
 
 # PyWKSpectra
 **Wheeler–Kiladis Space–Time Spectral Analysis in Python**
