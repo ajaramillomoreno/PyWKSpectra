@@ -12,6 +12,8 @@
 
 **Current version:** 1.0
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23438592.svg)](https://doi.org/10.5281/zenodo.23438592)
+
 ## About PyWKSpectra
 
 **PyWKSpectra** provides a practical, reproducible way to compute and visualize Wheeler–Kiladis space–time spectra, a widely used diagnostic for investigating convectively coupled equatorial waves and tropical atmospheric variability.
@@ -20,7 +22,7 @@ Its philosophy is simple: **make the scientific analysis accessible without hidi
 
 PyWKSpectra 1.0 includes:
 
-- Input handling for NetCDF, xarray objects, and GRIB data (with optional support), including coordinate and sampling checks.
+- Input handling for NetCDF, xarray objects, and GRIB data, including coordinate and sampling checks.
 - Removal of dominant low-frequency variability, equatorial symmetric/antisymmetric decomposition, and windowed space–time Fourier analysis.
 - Symmetric and antisymmetric power spectra, smoothed background power, and background-normalized spectra.
 - Ready-to-use plots of normalized and raw spectra, plus theoretical Matsuno dispersion diagrams.
@@ -34,12 +36,12 @@ PyWKSpectra builds on the Wheeler–Kiladis methodology and on the experience ga
 
 Some of the main changes and improvements are:
 
-- **An xarray-centered workflow.** PyWKSpectra accepts NetCDF files and xarray `Dataset` or `DataArray` objects, with optional GRIB support. It returns a labeled `xarray.Dataset` containing spectral coordinates, eight output variables, and analysis metadata. Results can be explored directly or saved as NetCDF for later use.
+- **An xarray-centered workflow.** PyWKSpectra accepts NetCDF and GRIB files, as well as xarray `Dataset` or `DataArray` objects. It returns a labeled `xarray.Dataset` containing spectral coordinates, eight output variables, and analysis metadata. Results can be explored directly or saved as NetCDF for later use.
 - **Simpler, more transparent interfaces.** One public function, `compute_wk_spectra()`, coordinates the complete analysis. Data input, spectral computations, and plotting are organized into separate modules rather than requiring users to manage internal plotting state.
 - **Explicit data checks and preprocessing.** The package checks regular temporal sampling, complete global longitude coverage, and symmetric latitude pairs. It documents its detrending, low-frequency removal, overlapping windows, and spectral-smoothing choices.
 - **NumPy-based numerical calculations.** Space–time Fourier analysis uses NumPy FFT routines, and preprocessing can operate in latitude chunks to manage working memory. The implementation uses a Hann window for each spectral segment; this is a methodological choice and need not produce numerically identical results to NCL or older versions of `wk_spectra`.
 - **Integrated scientific figures.** Standard functions generate raw spectra, a two-panel background-normalized spectrum, and Matsuno dispersion diagrams. The dispersion curves are calculated with NumPy, without requiring SciPy root-finding or pandas DataFrames in the plotting code.
-- **Fewer direct dependencies.** The core package specifies NumPy, xarray, Matplotlib, and netCDF4. SciPy and pandas are not direct requirements of PyWKSpectra's own algorithms, although **xarray may install pandas as a dependency**. GRIB support remains optional through `cfgrib` and ecCodes.
+- **Focused direct dependencies.** PyWKSpectra requires NumPy, xarray, Matplotlib, netCDF4, and cfgrib. SciPy and pandas are not direct requirements of PyWKSpectra's own algorithms, although **xarray may install pandas as a dependency**. GRIB decoding uses cfgrib and the ecCodes library.
 - **A reproducible starting point.** A documented notebook and a small NOAA OLR dataset make it easier to learn the workflow, inspect outputs, and adapt the analysis to other datasets.
 
 These improvements concern **software design, usability, and reproducibility**; they are not a claim that PyWKSpectra is universally faster, more accurate, or numerically equivalent to the NCL diagnostic or earlier `wk_spectra` releases. Scientific comparisons will continue as the package evolves. Likewise, PyWKSpectra 1.0 is focused on spectral diagnostics, not wavenumber–frequency filtering or reconstruction of individual waves.
@@ -54,7 +56,7 @@ PyWKSpectra requires **Python 3.10 or newer**. Install it with pip:
 pip install PyWKSpectra
 ```
 
-The core scientific dependencies are installed automatically:
+The following scientific dependencies are installed automatically:
 
 | Package | Purpose |
 |---|---|
@@ -62,9 +64,10 @@ The core scientific dependencies are installed automatically:
 | **xarray** | Multidimensional atmospheric data and spectral outputs |
 | **Matplotlib** | Spectral and dispersion-diagram visualization |
 | **netCDF4** | NetCDF input/output support |
+| **cfgrib** | GRIB input support through ecCodes |
 
-**Optional GRIB support.**  
-GRIB decoding also requires **ecCodes**. Depending on your operating system and environment, its native libraries may need to be installed separately; for example, with Conda:
+**GRIB support.**  
+The standard PyWKSpectra installation includes `cfgrib`. GRIB decoding relies on **ecCodes**. Depending on your operating system and environment, the ecCodes native libraries may need to be installed separately; for example, with Conda:
 
 ```bash
 conda install -c conda-forge eccodes
