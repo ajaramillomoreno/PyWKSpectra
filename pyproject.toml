@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "PyWKSpectra"
+version = "1.0"
+description = "Wheeler-Kiladis Space-Time Spectral Analysis in Python"
+readme = "README.md"
+requires-python = ">=3.10"
+
+authors = [
+    {name = "Alejandro Jaramillo-Moreno"}
+]
+
+dependencies = [
+    "numpy>=1.24",
+    "xarray>=2023.1",
+    "matplotlib>=3.7",
+    "netCDF4>=1.6"
+]
+
+[project.optional-dependencies]
+grib = ["cfgrib"]
+test = ["pytest"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
