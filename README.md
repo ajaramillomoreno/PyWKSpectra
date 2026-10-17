@@ -195,4 +195,4 @@ The project is committed to open scientific software, transparent development, r
 
 ---
 
-*May your spectral peaks be physically meaningful, your tests pass, and your citations point to the right author.*
+*May your spectral peaks be physically meaningful.*
