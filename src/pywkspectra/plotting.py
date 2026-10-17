@@ -32,7 +32,7 @@ from matplotlib.lines import Line2D
 # ==================================================
 def _add_pywkspectra_mark(ax, text_size=11):
     """Add a small software credit inside the bottom-right corner of an axis."""
-    ax.text(0.985, 0.025, "PyWKSpectra", transform=ax.transAxes, ha="right", va="bottom", fontsize=max(8, text_size-3), color="#243449", fontweight="semibold", bbox={"facecolor": "white", "edgecolor": "none", "alpha": 0.78, "pad": 1.5}, zorder=30)
+    ax.text(0.985, 0.025, "PyWKSpectra", transform=ax.transAxes, ha="right", va="bottom", fontsize=max(8, text_size-3), color="#243449", fontweight="bold", bbox={"facecolor": "white", "edgecolor": "none", "alpha": 0.78, "pad": 1.5}, zorder=30)
 
 # ==================================================
 # 2. Matsuno dispersion relations
@@ -305,7 +305,7 @@ def plot_raw_spectra(results, figsize=(8, 5.5), text_size=11, contour_range=None
             ax.set_ylabel("Frequency (cycles day$^{-1}$)")
 
             # Title and subtitle
-            ax.set_title(titles[key], loc="left", fontweight="semibold", pad=34)
+            ax.set_title(titles[key], loc="left", fontweight="bold", pad=34)
 
             if subtitle:
                 ax.text(0, 1.02, subtitle, transform=ax.transAxes,
@@ -497,7 +497,7 @@ def plot_wk_spectra(results, figsize=(12, 5.4), dpi=120, text_size=11, contour_r
                         if ax is axes[0]:
                             ax.annotate(f"{days:g} d", (w.min(), 1/days), xytext=(4, 3), textcoords="offset points", fontsize=text_size-3, color="#333d4b", bbox={"facecolor": "white", "alpha": 0.8, "edgecolor": "none", "pad": 1})
 
-            ax.set_title(title, loc="left", fontweight="semibold", pad=10)
+            ax.set_title(title, loc="left", fontweight="bold", pad=10)
             ax.set_xlim(-max_wn_plot, max_wn_plot)
             ax.set_ylim(float(f[0]), max_freq_plot)
             ax.set_xlabel("Zonal wavenumber")
@@ -574,7 +574,7 @@ def plot_wk_spectra(results, figsize=(12, 5.4), dpi=120, text_size=11, contour_r
         cbar.set_label("Power / background power")
         cbar.set_ticks(np.linspace(vmin, vmax, 5))
 
-        fig.suptitle("Wheeler–Kiladis spectra", fontsize=text_size+3, fontweight="semibold")
+        fig.suptitle("Wheeler–Kiladis spectra", fontsize=text_size+3, fontweight="bold")
 
         # Credit on the right panel, away from the shared colorbar
         _add_pywkspectra_mark(axes[1], text_size=text_size)
@@ -677,7 +677,7 @@ def plot_matsuno(he=25, max_wn=20, max_freq=0.5, meridional_modes=(1, 2, 3), fig
     fig.tight_layout(rect=(0, 0.035, 1, 1))
 
     # Outside the axes to avoid covering the lower-right legend
-    fig.text(0.975, 0.012, "PyWKSpectra", ha="right", va="bottom", fontsize=max(8, text_size-3), color="#243449", fontweight="semibold")
+    fig.text(0.975, 0.012, "PyWKSpectra", ha="right", va="bottom", fontsize=max(8, text_size-3), color="#243449", fontweight="bold")
 
     if save_path is not None:
         fig.savefig(save_path, dpi=dpi, bbox_inches="tight")
