@@ -1,101 +1,172 @@
-# PyWKSpectra
-
 <p align="center">
-  <img src="assets/pywkspectra_logo.png" alt="PyWKSpectra Logo" width="280">
+  <img src="assets/pywkspectra_logo.png" alt="PyWKSpectra logo" width="280">
 </p>
 
+# PyWKSpectra
 **Wheeler–Kiladis Space–Time Spectral Analysis in Python**
 
 *A focused Python package for investigating tropical atmospheric variability through wavenumber–frequency spectra.*
 
-> **Development status:** PyWKSpectra is under active development. The package is being redesigned and scientifically validated before its first public release. Its interface and features may change.
+**Current version:** 1.0
 
 ## About PyWKSpectra
 
-**PyWKSpectra** is a Python package dedicated to calculating, analyzing, and visualizing **Wheeler–Kiladis space–time spectra**, widely used to investigate convectively coupled equatorial waves and other aspects of tropical atmospheric variability.
+**PyWKSpectra** provides a practical, reproducible way to compute and visualize Wheeler–Kiladis space–time spectra, a widely used diagnostic for investigating convectively coupled equatorial waves and tropical atmospheric variability.
 
-The goal is simple: **make Wheeler–Kiladis spectral analysis more reliable, transparent, modern, and easier to use**.
+Its philosophy is simple: **make the scientific analysis accessible without hiding the results**. The package combines the main processing steps in an easy-to-use interface while returning a standard **xarray Dataset**, so researchers can inspect the spectral estimates, save them, and create their own analyses and figures.
 
-PyWKSpectra is not just a packaging update of an older implementation. It is an opportunity to revisit scientific choices, improve the computational workflow, and introduce carefully tested changes to how the analysis is performed.
+PyWKSpectra 1.0 includes:
 
-The planned priorities are:
+- Input handling for NetCDF, xarray objects, and GRIB data (with optional support), including coordinate and sampling checks.
+- Removal of dominant low-frequency variability, equatorial symmetric/antisymmetric decomposition, and windowed space–time Fourier analysis.
+- Symmetric and antisymmetric power spectra, smoothed background power, and background-normalized spectra.
+- Ready-to-use plots of normalized and raw spectra, plus theoretical Matsuno dispersion diagrams.
+- NetCDF-compatible results that can be reused without repeating the analysis.
 
-- Clear, reproducible computation of space–time spectra.
-- Symmetric and antisymmetric spectral components.
-- Background spectra and normalized spectral power.
-- Equatorial-wave dispersion curves and publication-quality plots.
-- More flexible inputs, transparent analysis options, and a convenient Python interface.
-- Numerical validation, automated tests, and reproducible examples.
+**Current scope:** PyWKSpectra computes and visualizes spectral diagnostics. **Version 1.0 does not perform Wheeler–Kiladis wavenumber–frequency filtering or reconstruct filtered wave signals in physical space.** Those capabilities, along with other improvements, remain possible directions for future development.
 
-These are **development goals**, not a claim that every feature is already available.
+## What is new compared with NCL and `wk_spectra`?
 
-## A little history (and a note on attribution)
+PyWKSpectra builds on the Wheeler–Kiladis methodology and on the experience gained from NCL's `wkSpaceTime` and my earlier Python implementation, `wk_spectra`. **It is not a line-by-line translation of NCL or simply a renamed version of the previous package.** Version 1.0 adopts a more Python-native approach, with an emphasis on clarity, reproducibility, and a manageable set of direct dependencies.
 
-This project began long before the name *PyWKSpectra* existed.
+Some of the main changes and improvements are:
 
-The original work was inspired by the **NCAR Command Language (NCL)** implementation of Wheeler–Kiladis spectral analysis, especially its [`wkSpaceTime` diagnostic](https://www.ncl.ucar.edu/Document/Functions/Diagnostics/wkSpaceTime.shtml). That implementation was an important reference for bringing the approach to Python.
+- **An xarray-centered workflow.** PyWKSpectra accepts NetCDF files and xarray `Dataset` or `DataArray` objects, with optional GRIB support. It returns a labeled `xarray.Dataset` containing spectral coordinates, eight output variables, and analysis metadata. Results can be explored directly or saved as NetCDF for later use.
+- **Simpler, more transparent interfaces.** One public function, `compute_wk_spectra()`, coordinates the complete analysis. Data input, spectral computations, and plotting are organized into separate modules rather than requiring users to manage internal plotting state.
+- **Explicit data checks and preprocessing.** The package checks regular temporal sampling, complete global longitude coverage, and symmetric latitude pairs. It documents its detrending, low-frequency removal, overlapping windows, and spectral-smoothing choices.
+- **NumPy-based numerical calculations.** Space–time Fourier analysis uses NumPy FFT routines, and preprocessing can operate in latitude chunks to manage working memory. The implementation uses a Hann window for each spectral segment; this is a methodological choice and need not produce numerically identical results to NCL or older versions of `wk_spectra`.
+- **Integrated scientific figures.** Standard functions generate raw spectra, a two-panel background-normalized spectrum, and Matsuno dispersion diagrams. The dispersion curves are calculated with NumPy, without requiring SciPy root-finding or pandas DataFrames in the plotting code.
+- **Fewer direct dependencies.** The core package specifies NumPy, xarray, Matplotlib, and netCDF4. SciPy and pandas are not direct requirements of PyWKSpectra's own algorithms, although **xarray may install pandas as a dependency**. GRIB support remains optional through `cfgrib` and ecCodes.
+- **A reproducible starting point.** A documented notebook and a small NOAA OLR dataset make it easier to learn the workflow, inspect outputs, and adapt the analysis to other datasets.
 
-I subsequently developed **[`wk_spectra`](https://github.com/mmaiergerber/wk_spectra)**, an earlier Python implementation of the method. Its original authorship and copyright records identify **Alejandro Jaramillo** as the original developer. I appreciate the interest and contributions that helped the software reach other researchers.
-
-Over time, maintaining and extending the package without sustained support became difficult. Its development history also became less visible than I had hoped, sometimes leading to confusion about the original authorship. This is not meant as criticism of any individual; it is simply a reminder that **software provenance deserves the same care as data provenance**.
-
-After all, Git can track every changed line of code, but citations still need a little help from humans.
-
-**PyWKSpectra** is a new effort to improve the scientific implementation, modernize the software, simplify its use, and make the history, authorship, and citation instructions explicit. Previous contributions will be acknowledged appropriately.
-
-## Scope
-
-The initial public release will concentrate on **Wheeler–Kiladis spectra** and their scientific interpretation.
-
-Specialized spectral filtering, inverse transforms, and wave-signal reconstruction are **outside the initial scope**. Those tools may be developed separately and are not promised as part of PyWKSpectra.
-
-Better to have one well-tested spectral package than a collection of mysterious peaks and equally mysterious bugs.
+These improvements concern **software design, usability, and reproducibility**; they are not a claim that PyWKSpectra is universally faster, more accurate, or numerically equivalent to the NCL diagnostic or earlier `wk_spectra` releases. Scientific comparisons will continue as the package evolves. Likewise, PyWKSpectra 1.0 is focused on spectral diagnostics, not wavenumber–frequency filtering or reconstruction of individual waves.
 
 ## Installation and examples
 
-Installation instructions, a minimal working example, and validated demonstration datasets will be provided when the package is ready for testing and distribution.
+### Install the package
 
-Until then, please treat the code as **work in progress**, rather than as a stable release.
+PyWKSpectra requires **Python 3.10 or newer**. Install it with pip:
+
+```bash
+python -m pip install PyWKSpectra
+```
+
+The core scientific dependencies are installed automatically:
+
+| Package | Purpose |
+|---|---|
+| **NumPy** | Numerical operations and Fourier transforms |
+| **xarray** | Multidimensional atmospheric data and spectral outputs |
+| **Matplotlib** | Spectral and dispersion-diagram visualization |
+| **netCDF4** | NetCDF input/output support |
+
+**Optional GRIB support.**  
+GRIB decoding also requires **ecCodes**. Depending on your operating system and environment, its native libraries may need to be installed separately; for example, with Conda:
+
+```bash
+conda install -c conda-forge eccodes
+```
+
+### Run the example notebook
+
+The repository includes a step-by-step tutorial:
+
+[`examples/example_wk_spectra.ipynb`](examples/example_wk_spectra.ipynb)
+
+It uses the accompanying **NOAA daily outgoing longwave radiation (OLR)** dataset for **2000–2004**:
+
+[`examples/data/noaa_olr_daily_2000_2004.nc`](examples/data/noaa_olr_daily_2000_2004.nc)
+
+To run the notebook, you will also need a Jupyter-compatible environment and **ipykernel**:
+
+```bash
+python -m pip install ipykernel
+```
+
+You can open the notebook using JupyterLab or Visual Studio Code with its Python and Jupyter extensions. Select the Python kernel in which PyWKSpectra and `ipykernel` are installed. Jupyter tools are needed for the tutorial, **not** for running PyWKSpectra in regular Python scripts.
+
+### Quick start
+
+```python
+import pywkspectra as wk
+
+results = wk.compute_wk_spectra(
+    "examples/data/noaa_olr_daily_2000_2004.nc",
+    varname="olr",
+    latBound=15,
+)
+
+# Display symmetric and antisymmetric background-normalized spectra
+fig, axes = wk.plot_wk_spectra(results)
+
+# Save spectral results for later use
+results.to_netcdf("wk_spectra_results.nc")
+```
+
+Additional plotting functions include `wk.plot_raw_spectra(results)` and `wk.plot_matsuno(he=25)`. To save figures in PNG and PDF, pass a directory using `save_dir`, for example `wk.plot_wk_spectra(results, save_dir="figures", dpi=300)`.
+
+## Documentation
+
+PyWKSpectra provides scientific documentation and a reproducible example to help researchers understand and apply Wheeler–Kiladis spectral analysis.
+
+- **[Scientific methodology](docs/methodology.md)** — Detailed description of the spectral analysis procedure, including preprocessing, equatorial symmetry decomposition, Fourier transforms, spectral smoothing, background estimation, normalization, and theoretical dispersion relationships.
+
+- **[Example notebook](examples/example_wk_spectra.ipynb)** — A step-by-step demonstration using real NOAA outgoing longwave radiation (OLR) data, including spectral calculations, visualization, and export of results.
+
+The methodology document describes the scientific and numerical foundations of the package, while the example notebook provides a practical introduction to its application.
+
+## A little history (and a note on attribution)
+
+This project began long before the name **PyWKSpectra** existed.
+
+I started working on a Python implementation of Wheeler–Kiladis spectral analysis in **2014**, during my doctoral studies, while visiting **George Kiladis** at NOAA's Physical Sciences Division (PSD). My initial goal was to bring to Python a method I had been using through the **NCAR Command Language (NCL)**, especially its [`wkSpaceTime` diagnostic](https://www.ncl.ucar.edu/Document/Functions/Diagnostics/wkSpaceTime.shtml).
+
+The NCL implementation was an invaluable scientific and technical reference. Over time, however, the Python code took its own path: it evolved toward NumPy-based calculations, a more Python-native workflow, and a package known as **`wk_spectra`**. An example of its subsequent development and circulation can be found in this [repository from the `wk_spectra` lineage](https://github.com/ajaramillomoreno/wk_spectra).
+
+Like many research-software projects, `wk_spectra` was developed alongside demanding academic responsibilities and without dedicated time or funding for software maintenance. As interest in the code grew, I could not always provide the documentation, user support, and updates it deserved. I was also disappointed to see that some later uses and citations did not correctly identify me as the original developer, despite the substantial work that went into the implementation.
+
+I mention this not to criticize individual researchers or overlook later contributions, but because **software provenance and proper attribution matter just as much as scientific reproducibility**. Code can be copied, modified, and improved by many people; its development history should remain clear.
+
+**PyWKSpectra** is a fresh effort to modernize and clarify the software, provide better documentation, establish its authorship explicitly, and create a foundation for future scientific development. Contributions by others to earlier versions deserve appropriate acknowledgment, too.
+
+The project continues to be developed **in my limited personal time, without dedicated funding or institutional support for its development**, alongside substantial research, teaching, academic, and administrative responsibilities. My institutional affiliation identifies where I work, not a funding source for this project. I welcome questions, suggestions, and reasonable requests, but please understand that replies may be delayed—or occasionally not possible. Thank you for your patience.
 
 ## How to cite PyWKSpectra
 
-**If PyWKSpectra contributes to your figures, analyses, or scientific results, please cite the software and its author.**
+**If PyWKSpectra contributes to your figures, analyses, teaching materials, or scientific results, please acknowledge the package and cite its original author.**
 
-The foundational Wheeler and Kiladis (1999) article explains the scientific method; a software citation additionally recognizes the implementation, verification, documentation, and maintenance needed to make that method accessible.
+The foundational paper by **Wheeler and Kiladis (1999)** describes the scientific method. A **separate software citation** recognizes the development, implementation, documentation, and maintenance that make that method available in Python. Ideally, please cite both when relevant.
 
-A formal `CITATION.cff` file and a DOI for an archived software release will be provided before the first public release. Until then, please acknowledge the package as **PyWKSpectra — Alejandro Jaramillo Moreno** and link to its repository where appropriate.
-
-*Spectral power may be symmetric or antisymmetric. Authorship should not be ambiguous.*
+The repository includes a `CITATION.cff` file with software attribution information. A persistent DOI for an archived release is planned. Until a DOI is available, please acknowledge the software as **PyWKSpectra, developed by Alejandro Jaramillo-Moreno**, with a link to this repository.
 
 ## Publications using PyWKSpectra
 
-**Have you used PyWKSpectra in a paper, preprint, thesis, or report? Please send me the reference!**
+**Have you used PyWKSpectra in a paper, preprint, thesis, or report? Please send me the reference or DOI!**
 
-I would be delighted to read your work and include it in a growing list of publications using the package. Seeing what researchers discover with the software is one of the most rewarding parts of sharing it.
-
-*A publication list will be added once references are available.*
+I would be delighted to learn about your work and maintain a list of publications that have benefited from the package. A publication list will be added as references become available.
 
 ## The best way to say thanks
 
-PyWKSpectra is being developed to support scientific research. If it saves you time or contributes to a result, there are three especially welcome ways to say thanks:
+I am not asking for donations or payment. If PyWKSpectra has helped your research, three things would mean a great deal to me:
 
-1. **Cite PyWKSpectra** in your publication.
-2. **Share your article** so I can add it to the list of research using the package.
-3. **Invite me to collaborate** when there is a meaningful scientific opportunity to work together.
+1. **Cite the software and acknowledge its original development.**
+2. **Share your publication** so I can learn from it and add it to the list of work using PyWKSpectra.
+3. **Invite me to collaborate** when there is a meaningful opportunity to explore tropical atmospheric dynamics together.
 
-Coffee certainly helps keep scientific code running, but **citations and collaborations are better long-term fuel**.
+Bug reports, constructive feedback, and properly credited contributions are welcome as well. And if you use the package in a classroom, for a student project, or simply for the joy of exploring atmospheric waves, I would be just as happy to know that these hours of work have been useful to someone.
 
-Constructive feedback, bug reports, and appropriately credited contributions are welcome too.
+*Coffee is appreciated, but citations and scientific collaborations are even better fuel for research software.*
 
-## Scientific reference
+## Scientific references
 
-Wheeler, M., and G. N. Kiladis (1999): Convectively coupled equatorial waves: Analysis of clouds and temperature in the wavenumber–frequency domain. *Journal of the Atmospheric Sciences*, **56**, 374–399.
-
-NCL reference: [`wkSpaceTime`](https://www.ncl.ucar.edu/Document/Functions/Diagnostics/wkSpaceTime.shtml).
+- **Matsuno, T. (1966).** Quasi-geostrophic motions in the equatorial area. *Journal of the Meteorological Society of Japan*, **44**, 25–43. [https://doi.org/10.2151/jmsj1965.44.1_25](https://doi.org/10.2151/jmsj1965.44.1_25)
+- **Wheeler, M., & Kiladis, G. N. (1999).** Convectively coupled equatorial waves: Analysis of clouds and temperature in the wavenumber–frequency domain. *Journal of the Atmospheric Sciences*, **56**, 374–399. [https://doi.org/10.1175/1520-0469(1999)056%3C0374:CCEWAO%3E2.0.CO;2](https://doi.org/10.1175/1520-0469(1999)056%3C0374:CCEWAO%3E2.0.CO;2)
+- **Kiladis, G. N., Wheeler, M. C., Haertel, P. T., Straub, K. H., & Roundy, P. E. (2009).** Convectively coupled equatorial waves. *Reviews of Geophysics*, **47**, RG2003. [https://doi.org/10.1029/2008RG000266](https://doi.org/10.1029/2008RG000266)
+- **NCL reference:** [`wkSpaceTime`](https://www.ncl.ucar.edu/Document/Functions/Diagnostics/wkSpaceTime.shtml).
 
 ## Author and maintainer
 
-**Alejandro Jaramillo Moreno**  
+**Alejandro Jaramillo-Moreno**  
 Departamento de Cambio Climático  
 Instituto de Ciencias de la Atmósfera y Cambio Climático (ICAyCC)  
 Universidad Nacional Autónoma de México (UNAM)  
@@ -106,9 +177,21 @@ Mexico City, Mexico
 
 ## License and acknowledgments
 
-A distribution license will be selected before the first public release. Until that is done, **no general permission to redistribute or reuse new PyWKSpectra code is granted by this README**. Existing code reused from earlier projects remains subject to its original license terms and attribution requirements.
+**PyWKSpectra 1.0 is distributed under the GNU General Public License version 3 (GPL-3.0-only).** See the [LICENSE](LICENSE) file for the complete terms.
 
-PyWKSpectra acknowledges the pioneering work of **Wheeler and Kiladis (1999)**, the **NCL** implementation that inspired the original Python work, and the contributions of researchers and users over the years.
+Copyright © 2026 Alejandro Jaramillo-Moreno.
+
+PyWKSpectra builds upon the scientific and software development work originally undertaken by Alejandro Jaramillo, including the earlier `wk_spectra` implementation.
+
+The original `wk_spectra` code was distributed under the BSD 2-Clause License, with the copyright notice:
+
+*Copyright (c) 2018, Alejandro Jaramillo.*
+
+Any portions of that code incorporated into PyWKSpectra retain their applicable original license terms and copyright notices. A copy of the original license is provided in [LICENSES/BSD-2-Clause-wk_spectra.txt](LICENSES/BSD-2-Clause-wk_spectra.txt).
+
+PyWKSpectra also acknowledges the foundational scientific contributions of Wheeler and Kiladis (1999), the NCL `wkSpaceTime` implementation that inspired the original Python work, and the researchers who have contributed ideas, feedback, and improvements over the years.
+
+The project is committed to open scientific software, transparent development, reproducibility, and proper recognition of scientific contributions.
 
 ---
 

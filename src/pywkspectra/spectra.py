@@ -1,4 +1,6 @@
-
+# Copyright (C) 2018 Alejandro Jaramillo
+# Copyright (C) 2026 Alejandro Jaramillo-Moreno
+# SPDX-License-Identifier: GPL-3.0-only
 """
 PyWKSpectra - Wheeler-Kiladis Spectral Analysis
 ===============================================

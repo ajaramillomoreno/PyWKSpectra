@@ -1,4 +1,5 @@
-
+# Copyright (C) 2026 Alejandro Jaramillo-Moreno
+# SPDX-License-Identifier: GPL-3.0-only
 """
 PyWKSpectra - Data Input and Validation
 =======================================
