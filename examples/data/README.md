@@ -24,7 +24,7 @@ The saved OLR values, coordinates, and dimensions were checked against the selec
 
 Data provided by the **NOAA Physical Sciences Laboratory (PSL)**, Boulder, Colorado, USA.
 
-- Dataset: [NOAA Interpolated Outgoing Longwave Radiation](https://psl.noaa.gov/data/gridded/data.interp_OLR.html)
+- Dataset: [NOAA Interpolated Outgoing Longwave Radiation](https://psl.noaa.gov/data/gridded/data.olrcdr.interp.html)
 - Provider: [NOAA PSL](https://psl.noaa.gov/)
 - Original source filename: `olr.day.mean.nc`
 
